@@ -18,14 +18,7 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Activity.Login2"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activity.Register"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,12 +31,19 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.GameDetail" />
         <activity android:name=".Activity.coba" />
-        <activity android:name=".Activity.Profile">
-
-        </activity>
+        <activity android:name=".Activity.Profile"></activity>
         <activity android:name=".Activity.UpdateProfile" />
         <activity android:name=".Activity.UpdateSpecification" />
-        <activity android:name=".Activity.Cart"></activity>
+        <activity android:name=".Activity.Cart">
+
+        </activity>
+        <activity android:name=".Activity.PopularActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

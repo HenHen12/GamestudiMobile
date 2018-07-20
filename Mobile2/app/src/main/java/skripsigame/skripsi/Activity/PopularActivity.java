@@ -1,6 +1,5 @@
 package skripsigame.skripsi.Activity;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 
 import skripsigame.skripsi.R;
 
-public class Cart extends AppCompatActivity {
+public class PopularActivity extends AppCompatActivity {
 
     private RecyclerView rvView;
     private RecyclerView.Adapter adapter;
@@ -20,12 +19,12 @@ public class Cart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_popular);
 
         dataSet = new ArrayList<>();
         initDataset();
 
-        rvView = (RecyclerView) findViewById(R.id.cart);
+        rvView = (RecyclerView) findViewById(R.id.popular);
         rvView.setHasFixedSize(true);
 
         /**
@@ -36,7 +35,7 @@ public class Cart extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvView.setLayoutManager(layoutManager);
 
-        adapter = new CartAdapter(dataSet);
+        adapter = new PopularAdapter(dataSet);
         rvView.setAdapter(adapter);
 
     }
