@@ -32,7 +32,7 @@ public class Rekomendasi extends Fragment {
     private RecyclerView recyclerView;
     private RekomendasiAdapter rekomendasiAdapter;
     private GameService gameService;
-    private static List<GameData> gameData;
+    private static List<Games> gameData;
     AlertDialog alertDialog;
     AlertDialog.Builder alertDialogBuilder;
 
@@ -67,48 +67,57 @@ public class Rekomendasi extends Fragment {
 
     private void showList(){
         gameService.getGame()
-                .enqueue(new Callback<List<GameData>>() {
+                .enqueue(new Callback<List<Games>>() {
                     @Override
-                    public void onResponse(Call<List<GameData>> call, Response<List<GameData>> response) {
+                    public void onResponse(Call<List<Games>> call, Response<List<Games>> response) {
+                        gameData = response.body();
+                        Games datagame = new Games();
                         if(response.isSuccessful()){
-                            try {
-                                JSONObject jsonRESULTS = new JSONObject(response.body().toString());
-                                if (jsonRESULTS.getString("error").equals("false")){
-                                    Integer n = jsonRESULTS.length() - 1;
-
-                                    gameData  = new ArrayList<GameData>();
-
-                                    //generate list
-                                    for (int I = 0; I<n; I++) {
-                                        String game_name = jsonRESULTS.getJSONObject(""+I).getString("game_name");
-                                        String release_date = jsonRESULTS.getJSONObject(""+I).getString("release_date");
-                                        String harga = jsonRESULTS.getJSONObject(""+I).getString("harga");
-                                        String id = jsonRESULTS.getJSONObject(""+I).getString("id");
-                                        String rating = jsonRESULTS.getJSONObject(""+I).getString("rating");
-                                        String photo_url = jsonRESULTS.getJSONObject(""+I).getString("photo_url");
-
-                                        // adding each child node to ArrayList key =&gt; value
-                                        gameData.add(new GameData(game_name,release_date, harga, id, rating,photo_url ));
-                                    }
-
-                                    //instantiate custom adapter
-                                    rekomendasiAdapter = new RekomendasiAdapter(gameData);
-
-                                    //handle listview and assign adapter
-                                    recyclerView.setAdapter(rekomendasiAdapter);
-                                } else {
-                                    // Jika login gagal
-                                    String error_message = jsonRESULTS.getString("error_msg");
-                                    Toast.makeText(getContext(), error_message, Toast.LENGTH_SHORT).show();
+//                            try {
+                                for(int i = 0;i<gameData.size();i++){
+                                    datagame = new Games();
+                                    String game_name = gameData.get(i).getGame_name();
+                                    datagame.setGame_name(game_name);
+                                    gameData.add(datagame);
                                 }
-                            }catch (JSONException e) {
-                                Toast.makeText(getContext(),"Koneksi Gagal, periksa koneksi internet",Toast.LENGTH_LONG);
-                            }
+
+//                                JSONObject jsonRESULTS = new JSONObject(response.body().toString());
+//                                if (jsonRESULTS.getString("error").equals("false")){
+//                                    Integer n = jsonRESULTS.length() - 1;
+//
+//                                    gameData  = new ArrayList<GameData>();
+//
+//                                    //generate list
+//                                    for (int I = 0; I<n; I++) {
+//                                        String game_name = jsonRESULTS.getJSONObject(""+I).getString("game_name");
+//                                        String release_date = jsonRESULTS.getJSONObject(""+I).getString("release_date");
+//                                        String harga = jsonRESULTS.getJSONObject(""+I).getString("harga");
+//                                        String id = jsonRESULTS.getJSONObject(""+I).getString("id");
+//                                        String rating = jsonRESULTS.getJSONObject(""+I).getString("rating");
+//                                        String photo_url = jsonRESULTS.getJSONObject(""+I).getString("photo_url");
+//
+//                                        // adding each child node to ArrayList key =&gt; value
+//                                        gameData.add(new GameData(game_name,release_date, harga, id, rating,photo_url ));
+//                                    }
+//
+//                                    //instantiate custom adapter
+//                                    rekomendasiAdapter = new RekomendasiAdapter(gameData);
+//
+//                                    //handle listview and assign adapter
+//                                    recyclerView.setAdapter(rekomendasiAdapter);
+//                                } else {
+//                                    // Jika login gagal
+//                                    String error_message = jsonRESULTS.getString("error_msg");
+//                                    Toast.makeText(getContext(), error_message, Toast.LENGTH_SHORT).show();
+//                                }
+//                            }catch (JSONException e) {
+//                                Toast.makeText(getContext(),"Koneksi Gagal, periksa koneksi internet",Toast.LENGTH_LONG);
+//                            }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<List<GameData>> call, Throwable t) {
+                    public void onFailure(Call<List<Games>> call, Throwable t) {
                         Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                         alertDialogBuilder.setMessage("Jaringan Sedang Bermasalah").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
