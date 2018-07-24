@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 
 public class User implements Serializable {
+    @SerializedName("token")
+    private String token;
+
     @SerializedName("id")
     private String id;
 
@@ -26,6 +29,14 @@ public class User implements Serializable {
 
     @SerializedName("genre")
     private Array genre;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getId() {
         return id;

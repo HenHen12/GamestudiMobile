@@ -118,6 +118,9 @@ public class Login2 extends AppCompatActivity {
                                 if(response.isSuccessful()){
                                     Log.d("Call", "onResponse: call success");
                                     Intent intent = new Intent(Login2.this, PopularActivity.class);
+                                    String token = response.body().getToken().toString();
+                                    intent.putExtra("token", token);
+                                    intent.putExtra("email",txtemail.getText().toString());
                                     startActivity(intent);
                                     finish();
                                 }
